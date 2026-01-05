@@ -1,6 +1,6 @@
 # SAE15
 
-##OBJECTIF ( ordre d'importance ) 
+## OBJECTIF ( ordre d'importance ) 
 
 - creation de la fonction md vers html
 - 
