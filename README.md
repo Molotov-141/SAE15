@@ -2,7 +2,7 @@
 
 ## OBJECTIF ( ordre d'importance ) 
 
-- creation de la fonction md vers html
+- creation de la fonction md vers html | fait !
 - 
 
 ## Lien utiles 
