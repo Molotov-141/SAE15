@@ -9,18 +9,21 @@ elif connexion.status_code == 500:
 elif connexion.status_code == 204:
     print("Aucune donnée à retourner")
 
-## id = "3649697385"
-## print("https://www.openstreetmap.org/api/0.6/node/3649697385.json")
-## print(response.json)
-
-## response = requests.get("https://www.openstreetmap.org/api/0.6/node/"+id+".json")
-## print("https://www.openstreetmap.org/api/0.6/node/"+id+".json")
-## print(request.json)
-## if response.status_code == 404:
-    ## print("Erreur 404 : Ressource non trouvée")
-## print(response.json)
-id = "3649697385"
-api_url = "https://www.openstreetmap.org/api/0.6/node/3649697385.json"
+# id = "3649697385"
+id = "456710077"
+api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
 response = requests.get(api_url)
-donnees = response.json()
-print(donnees)
+json_data = response.json()
+if response.status_code == 404:
+    print("Erreur 404 : Ressource non trouvée")
+else:
+    print(json_data)
+
+def get_node_name(id):
+    api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
+    response = requests.get(api_url)
+    json_data = response.json()
+    if response.status_code == 404:
+        print("Erreur 404 : Ressource non trouvée")
+    else:
+        print(json_data['elements'][0]['tags']['name'])
