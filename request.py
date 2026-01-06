@@ -9,21 +9,31 @@ elif connexion.status_code == 500:
 elif connexion.status_code == 204:
     print("Aucune donnée à retourner")
 
-# id = "3649697385"
-id = "456710077"
-api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
-response = requests.get(api_url)
-json_data = response.json()
-if response.status_code == 404:
-    print("Erreur 404 : Ressource non trouvée")
-else:
-    print(json_data)
+def request(id):
+    api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
+    response = requests.get(api_url)
+    json_data = response.json() 
+    if response.status_code == 404:
+        print("Erreur 404 : Ressource non trouvée")
+    else:
+        print(json_data)
 
 def get_node_name(id):
+    '''Récupère le nom d'un noeud OSM à partir de son ID et renvoie "Sans nom" s'il n'en a pas.'''
     api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
     response = requests.get(api_url)
     json_data = response.json()
     if response.status_code == 404:
         print("Erreur 404 : Ressource non trouvée")
     else:
-        print(json_data['elements'][0]['tags']['name'])
+        print(json_data['elements'][0]['tags'].get('name', 'SANS NOM'))
+
+def print_node_attributes(id):
+    '''Affiche les attributs d'un noeud OSM à partir de son ID.'''
+    api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
+    response = requests.get(api_url)
+    json_data = response.json() 
+    if response.status_code == 404:
+        print("Erreur 404 : Ressource non trouvée")
+    else:
+        print(json_data['elements'][0]['tags'])
