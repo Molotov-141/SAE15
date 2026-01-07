@@ -9,6 +9,6 @@ def convert(fichiermd, fichierhtml):
 
     with open(fichierhtml, 'w') as f: ## creation et ecriture dans un fichier en .html
         f.write(html)
-        print("fichier crée")
 
-convert(sys.argv[1],sys.argv[2])
+if __name__ == '__main__':
+    convert(sys.argv[1],sys.argv[2])
