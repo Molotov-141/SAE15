@@ -1,5 +1,5 @@
 import requests
-import markdown
+import markdown as md
 url = "https://api.openstreetmap.org/"
 connexion = requests.get(url)
 if connexion.status_code == 200:
@@ -9,7 +9,7 @@ elif connexion.status_code == 500:
 elif connexion.status_code == 204:
     print("Aucune donnée à retourner")
 
-def request(id):
+def get_node(id):
     api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
     response = requests.get(api_url)
     json_data = response.json() 
@@ -37,3 +37,11 @@ def print_node_attributes(id):
         print("Erreur 404 : Ressource non trouvée")
     else:
         print(json_data['elements'][0]['tags'])
+
+def node_to_md(data: dict, filename: str):
+    '''Convertit les données d'un noeud OSM en format Markdown et les enregistre dans un fichier.'''
+    with open(filename, 'w') as f:
+        f.write(md.markdown(f"# Informations sur le noeud {data['id']}\n"))
+        f.write(md.markdown("## Attributs\n"))
+        for key, value in data['tags'].items():
+            f.write(md.markdown(f"- **{key}**: {value}\n"))
