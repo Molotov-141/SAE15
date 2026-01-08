@@ -50,8 +50,68 @@ def node_to_md(data: dict, filename: str):
         f.write(f"# Informations sur le noeud {data['elements'][0]['id']}\n\n")
         f.write("## Attributs\n\n")
         for key, value in data['elements'][0].items():
-            f.write(f"- **{key}**: {value}\n")
-            if key == 'tags':
-                f.write("### Tags\n\n")
-                for tag_key, tag_value in value.items():
-                    f.write(f"- **{tag_key}**: {tag_value}\n")
+#            while f"{key}" != 'tags':
+#                f.write(f"- **{key}**: {value}\n")
+#            f.write("### Tags\n\n")
+#            for tag_key, tag_value in value.items():
+#                f.write(f"- **{tag_key}**: {tag_value}\n")
+
+            if f"{key}" == 'type':
+                f.write("### Type : ")
+                f.write(f"{value}\n")
+            if f"{key}" == 'id':
+                f.write("### ID : ")
+                f.write(f"{value}\n")
+            if f"{key}" == 'lat':
+                f.write("### Latitude : ")
+                f.write(f"{value}\n")
+            if f"{key}" == 'lon':
+                f.write("### Longitude : ")
+                f.write(f"{value}\n")
+            if f"{key}" == 'timestamp':
+                f.write("### Date de modification : ")
+                f.write(f"{value}\n")
+            if f"{key}" == 'version':
+                f.write("### Version : ")
+                f.write(f"{value}\n")  
+            if f"{key}" == 'user':
+                f.write("### Utilisateur : ")
+                f.write(f"{value}\n")
+            if f"{key}" == 'uid':
+                f.write("### UID : ")
+                f.write(f"{value}\n")
+            for key, value in data['elements'][0]['tags'].items():
+                if f"{key}" == 'addr:street':
+                    f.write("### Rue : ")
+                    f.write(f"{value}\n")
+                if f"{key}" == 'brand':
+                    f.write("### Marque : ")
+                    f.write(f"{value}\n")
+                if f"{key}" == 'name':
+                    f.write("### Nom : ")
+                    f.write(f"{value}\n")
+                if f"{key}" == 'amenity':
+                    f.write("### Aménagement : ")
+                    f.write(f"{value}\n")
+                if f"{key}" == 'building':
+                    f.write("### Bâtiment : ")
+                    f.write(f"{value}\n")
+                if f"{key}" == 'highway':
+                    f.write("### Route : ")
+                    f.write(f"{value}\n")
+                if f"{key}" == 'tourism':
+                    f.write("### Tourisme : ")
+                    f.write(f"{value}\n")
+                if f"{key}" == 'addr:city':
+                    f.write("### Ville : ")
+                    f.write(f"{value}\n")
+                if f"{key}" == 'addr:postcode':
+                    f.write("### Code postal : ")
+                    f.write(f"{value}\n")
+                if f"{key}" == 'shop':
+                    f.write("### Magasin : ")
+                    f.write(f"{value}\n")
+                if f"{key}" == 'website':
+                    f.write("### Site web : ")
+                    f.write(f"{value}\n")
+                
