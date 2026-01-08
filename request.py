@@ -1,4 +1,5 @@
 import requests
+import os
 import markdown as md
 url = "https://api.openstreetmap.org/"
 connexion = requests.get(url)
@@ -40,8 +41,11 @@ def print_node_attributes(id):
 
 def node_to_md(data: dict, filename: str):
     '''Convertit les données d'un noeud OSM en format Markdown et les enregistre dans un fichier.'''
-    with open(filename, 'w') as f:
-        f.write(md.markdown(f"# Informations sur le noeud {data['id']}\n"))
-        f.write(md.markdown("## Attributs\n"))
-        for key, value in data['tags'].items():
-            f.write(md.markdown(f"- **{key}**: {value}\n"))
+    chemin_dossier = "C:\\Users\\Administrator\\Documents\\IUT\\SAE15\\SAE15\\resultats\\"
+    chemin_final = os.path.join(chemin_dossier, filename)
+    with open(chemin_final, 'w', encoding="utf-8") as f:
+        f.write(f"# Informations sur le noeud {data['elements'][0]['id']}\n\n")
+        f.write("## Attributs\n\n")
+        for key, value in data['elements'][0].items():
+            f.write(f"- **{key}**: {value}\n")
+            
