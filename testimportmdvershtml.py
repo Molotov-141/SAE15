@@ -6,4 +6,3 @@ def convertion(fichiermmd,fichierhhtml):
     convert(fichiermmd,fichierhhtml)
     print("Convertion réalisée.")
     print("===Merci de votre utilisation===")
-
