@@ -4,6 +4,11 @@
 
 -
 
+## Réalisé 
+
+- convert ( dans md_vers_html.py ) : fonction appelable dans un autre fichier, et appelable dans le bash
+- obtention et communication avec l'API
+
 
 ## Lien utiles 
 docu API :  https://wiki.openstreetmap.org/wiki/API_v0.6 
