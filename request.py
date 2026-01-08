@@ -51,4 +51,7 @@ def node_to_md(data: dict, filename: str):
         f.write("## Attributs\n\n")
         for key, value in data['elements'][0].items():
             f.write(f"- **{key}**: {value}\n")
-            
+            if key == 'tags':
+                f.write("### Tags\n\n")
+                for tag_key, tag_value in value.items():
+                    f.write(f"- **{tag_key}**: {tag_value}\n")

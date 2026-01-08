@@ -27,8 +27,8 @@ response = requests.get(api_url)
 json_data = response.json() 
 if response.status_code == 404:
     print("Erreur 404 : Ressource non trouvée")
-else:
-    print(json_data)
+#else:
+#    print(json_data)
     
 dossier_script = os.path.dirname(os.path.abspath(__file__))
 chemin_dossier = os.path.join(dossier_script, "resultats")
