@@ -41,7 +41,9 @@ def print_node_attributes(id):
 
 def node_to_md(data: dict, filename: str):
     '''Convertit les données d'un noeud OSM en format Markdown et les enregistre dans un fichier.'''
-    chemin_dossier = "C:\\Users\\Administrator\\Documents\\IUT\\SAE15\\SAE15\\resultats\\"
+    dossier_script = os.path.dirname(os.path.abspath(__file__))
+    chemin_dossier = os.path.join(dossier_script, "resultats")
+    os.makedirs(chemin_dossier, exist_ok=True)
     chemin_final = os.path.join(chemin_dossier, filename)
     with open(chemin_final, 'w', encoding="utf-8") as f:
         f.write(f"# Informations sur le noeud {data['elements'][0]['id']}\n\n")
