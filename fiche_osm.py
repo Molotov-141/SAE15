@@ -3,7 +3,7 @@ import sys
 import requests
 import os
 import markdown
-from md_vers_html import convert
+from convertisseur3000 import convertion
 from request import get_node
 from request import get_node_name
 from request import node_to_md
@@ -20,8 +20,19 @@ elif connexion.status_code == 204:
     print("Aucune donnée à retourner")
 
 
+
 id = input("Entrez l'ID du noeud OSM : ")
-get_node(id)
-get_node_name(id)
+api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
+response = requests.get(api_url)
+json_data = response.json() 
+if response.status_code == 404:
+    print("Erreur 404 : Ressource non trouvée")
+#else:
+#    print(json_data)
+    
+dossier_script = os.path.dirname(os.path.abspath(__file__))
+chemin_dossier = os.path.join(dossier_script, "resultats")
+
 node_to_md(json_data, f"fiche_node_{id}.md")
-convert(f"./resultats/fiche_node_{id}.md", f"./resultats/fiche_node_{id}.html")
+convertion(os.path.join(chemin_dossier, f"fiche_node_{id}.md"), os.path.join(chemin_dossier, f"fiche_node_{id}.html"))
+

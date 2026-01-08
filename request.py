@@ -1,7 +1,6 @@
 import requests
 import os
 import markdown as md
-json_data = {}
 url = "https://api.openstreetmap.org/"
 connexion = requests.get(url)
 if connexion.status_code == 200:
@@ -19,18 +18,17 @@ def get_node(id):
         print("Erreur 404 : Ressource non trouvée")
     else:
         print(json_data)
-    return json_data
 
 def get_node_name(id):
-    '''Récupère le nom d'un noeud OSM à partir de son ID et renvoie "Sans nom" s'il n'en a pas.'''
+    '''Récupère le nom d'un noeud OSM à partir de son ID et renvoie "SANS NOM" s'il n'en a pas.'''
     api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
     response = requests.get(api_url)
     json_data = response.json()
-    print(json_data)
     if response.status_code == 404:
         print("Erreur 404 : Ressource non trouvée")
     else:
         print(json_data['elements'][0]['tags'].get('name', 'SANS NOM'))
+    return(json_data)
 
 def print_node_attributes(id):
     '''Affiche les attributs d'un noeud OSM à partir de son ID.'''
@@ -53,4 +51,7 @@ def node_to_md(data: dict, filename: str):
         f.write("## Attributs\n\n")
         for key, value in data['elements'][0].items():
             f.write(f"- **{key}**: {value}\n")
-            
+            if key == 'tags':
+                f.write("### Tags\n\n")
+                for tag_key, tag_value in value.items():
+                    f.write(f"- **{tag_key}**: {tag_value}\n")
