@@ -1,6 +1,7 @@
 import requests
 import os
 import markdown as md
+json_data = {}
 url = "https://api.openstreetmap.org/"
 connexion = requests.get(url)
 if connexion.status_code == 200:
@@ -18,12 +19,14 @@ def get_node(id):
         print("Erreur 404 : Ressource non trouvée")
     else:
         print(json_data)
+    return json_data
 
 def get_node_name(id):
     '''Récupère le nom d'un noeud OSM à partir de son ID et renvoie "Sans nom" s'il n'en a pas.'''
     api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
     response = requests.get(api_url)
     json_data = response.json()
+    print(json_data)
     if response.status_code == 404:
         print("Erreur 404 : Ressource non trouvée")
     else:
