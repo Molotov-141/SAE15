@@ -43,6 +43,9 @@ def print_node_attributes(id):
 def node_to_md(id, filename: str):
     '''Convertit les données d'un noeud OSM en format Markdown.'''
     data = get_node(id)
+    if not data or len(data['elements']) == 0:
+        print("Erreur : Pas de données valides pour cet ID.")
+        return
     tags = data['elements'][0]['tags']
     dossier_script = os.path.dirname(os.path.abspath(__file__))
     chemin_dossier = os.path.join(dossier_script, "resultats")
