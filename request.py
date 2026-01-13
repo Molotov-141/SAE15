@@ -13,11 +13,11 @@ elif connexion.status_code == 204:
 def get_node(id):
     api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
     response = requests.get(api_url)
-    json_data = response.json() 
+    json_data = response.json()
     if response.status_code == 404:
         print("Erreur 404 : Ressource non trouvée")
     else:
-        print(json_data)
+        return(json_data)
 
 def get_node_name(id):
     '''Récupère le nom d'un noeud OSM à partir de son ID et renvoie "SANS NOM" s'il n'en a pas.'''
@@ -40,47 +40,33 @@ def print_node_attributes(id):
     else:
         print(json_data['elements'][0]['tags'])
 
-def node_to_md(data: dict, filename: str):
-    '''Convertit les données d'un noeud OSM en format Markdown et les enregistre dans un fichier.'''
+def node_to_md(id, filename: str):
+    '''Convertit les données d'un noeud OSM en format Markdown.'''
+    data = get_node(id)
+    tags = data['elements'][0]['tags']
     dossier_script = os.path.dirname(os.path.abspath(__file__))
     chemin_dossier = os.path.join(dossier_script, "resultats")
     os.makedirs(chemin_dossier, exist_ok=True)
     chemin_final = os.path.join(chemin_dossier, filename)
     with open(chemin_final, 'w', encoding="utf-8") as f:
-        f.write(f"# Informations sur le noeud {data['elements'][0]['id']}\n\n")
+        f.write(f"# Informations sur le noeud {id}\n\n")
         f.write("## Attributs\n\n")
-        print(data['elements'][0]['tags'])
-        for key, value in data['elements'][0].items():
-            while f"{key}" != 'tags':
-                f.write(f"- **{key}**: {value}\n")
-            f.write("### Tags\n\n")
-            for tag_key, tag_value in value.items():
-                f.write(f"- **{tag_key}**: {tag_value}\n")
-
-#            if f"{key}" == 'type':
-#                f.write("### Type : ")
-#                f.write(f"{value}\n")
-#            if f"{key}" == 'id':
-#                f.write("### ID : ")
-#                f.write(f"{value}\n")
-#            if f"{key}" == 'lat':
-#                f.write("### Latitude : ")
-#                f.write(f"{value}\n")
-#            if f"{key}" == 'lon':
-#                f.write("### Longitude : ")
-#                f.write(f"{value}\n")
-#            if f"{key}" == 'timestamp':
-#                f.write("### Date de modification : ")
-#                f.write(f"{value}\n")
-#            if f"{key}" == 'version':
-#                f.write("### Version : ")
-#                f.write(f"{value}\n")  
-#            if f"{key}" == 'user':
-#                f.write("### Utilisateur : ")
-#                f.write(f"{value}\n")
-#            if f"{key}" == 'uid':
-#                f.write("### UID : ")
-#                f.write(f"{value}\n")
-#            for key, value in data['elements'][0]['tags'].items():
-#                f.write("### Tags\n\n")
-#                f.write(f"- **{key}**: {value}\n")
+        numero = tags.get('addr:housenumber', '')
+        rue = tags.get('addr:street', '')
+        ville = tags.get('addr:city', '')
+        if numero or rue or ville:
+            adresse_complete = f"{numero} {rue}, {ville}".strip()
+            f.write(f"- **Adresse** : {adresse_complete}\n")   
+        f.write(f"- **Nom** : {tags.get('name', 'Non spécifié')}\n")
+        f.write(f"- **Type** : {tags.get('shop', tags.get('amenity', 'Non spécifié'))}\n") # Astuce: cherche shop, sinon amenity
+        f.write(f"- **Téléphone** : {tags.get('phone', 'Non spécifié')}\n")
+        f.write(f"- **Livraison** : {tags.get('delivery', 'Non spécifié')}\n")
+        f.write(f"- **Horaires** : {tags.get('opening_hours', 'Non spécifié')}\n")
+        carte = tags.get('payment:cards', 'Non spécifié')
+        cash = tags.get('payment:cash', 'Non spécifié')
+        f.write(f"- **Paiement Carte** : {carte}\n")
+        f.write(f"- **Paiement Espèces** : {cash}\n")
+        
+        f.write(f"- **Vente à emporter** : {tags.get('takeaway', 'Non spécifié')}\n")
+        f.write(f"- **Site Web** : {tags.get('website', 'Non spécifié')}\n")
+        f.write(f"- **Accès PMR** : {tags.get('wheelchair', 'Non spécifié')}\n")

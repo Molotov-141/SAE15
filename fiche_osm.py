@@ -34,6 +34,6 @@ elif connexion.status_code == 204:
 dossier_script = os.path.dirname(os.path.abspath(__file__))
 chemin_dossier = os.path.join(dossier_script, "resultats")
 
-node_to_md(json_data, f"fiche_node_{id}.md")
+node_to_md(id, f"fiche_node_{id}.md")
 convertion(os.path.join(chemin_dossier, f"fiche_node_{id}.md"), os.path.join(chemin_dossier, f"fiche_node_{id}.html"))
 
