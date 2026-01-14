@@ -5,8 +5,8 @@ import os
 import markdown
 from convertisseur3000 import convertion
 from request import get_node
-from request import get_node_name
 from request import node_to_md
+
 json_data = {}
 
 

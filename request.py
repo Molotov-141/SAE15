@@ -58,10 +58,10 @@ def node_to_md(id, filename: str):
         rue = tags.get('addr:street', '')
         ville = tags.get('addr:city', '')
         if numero or rue or ville:
-            adresse_complete = f"{numero} {rue}, {ville}".strip()
+            adresse_complete = f"{numero} {rue}, {ville}".strip() # Evite espaces inutiles si pas de numéro de rue
             f.write(f"- **Adresse** : {adresse_complete}\n")   
         f.write(f"- **Nom** : {tags.get('name', 'Non spécifié')}\n")
-        f.write(f"- **Type** : {tags.get('shop', tags.get('amenity', 'Non spécifié'))}\n") # Astuce: cherche shop, sinon amenity
+        f.write(f"- **Type** : {tags.get('shop', tags.get('amenity', 'Non spécifié'))}\n") # Cherche shop, sinon amenity
         f.write(f"- **Téléphone** : {tags.get('phone', 'Non spécifié')}\n")
         f.write(f"- **Livraison** : {tags.get('delivery', 'Non spécifié')}\n")
         f.write(f"- **Horaires** : {tags.get('opening_hours', 'Non spécifié')}\n")
