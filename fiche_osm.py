@@ -28,9 +28,7 @@ if response.status_code == 404:
     print("Erreur 404 : Ressource non trouvée")
 elif connexion.status_code == 204:
     print("Aucune donnée à retourner")
-#else:
-#    print(json_data)
-    
+
 dossier_script = os.path.dirname(os.path.abspath(__file__))
 chemin_dossier = os.path.join(dossier_script, "resultats")
 

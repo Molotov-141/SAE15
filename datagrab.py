@@ -1,8 +1,5 @@
 import requests
-import time
 import os
-import markdown
-import math
 overpass_url0 = "http://overpass-api.de/api/interpreter"
 overpass_url1 = "https://lz4.overpass-api.de/api/interpreter"
 
@@ -45,6 +42,7 @@ def get_dataset(query):
         return None
 
 def compute_statistics(data):
+    '''Crée un score et une note à une ville'''
     score = 0
     bakery_count = 0
     fast_food_count = 0
@@ -87,4 +85,22 @@ def compute_statistics(data):
     print(f"{note}/20")
     return note
 
-def dataset_to_md(data, filename):
+def dataset_to_md(data, filename: str):
+    '''Convertit les données d'une ville en format Markdown.'''
+    data = compute_statistics(data)
+    if not data or len(data['elements']) == 0:
+        print("Erreur : Pas de données valides pour cette ville.")
+        return
+    tags = data['elements'][0]['tags']
+    dossier_script = os.path.dirname(os.path.abspath(__file__))
+    chemin_dossier = os.path.join(dossier_script, "resultats")
+    os.makedirs(chemin_dossier, exist_ok=True)
+    chemin_final = os.path.join(chemin_dossier, filename)
+    with open(chemin_final, 'w', encoding="utf-8") as f:
+        f.write(f"# Est ce que votre ville est pigeon friendly ?\n")
+        f.write("## Statistiques\n\n")
+        f.write(f"## Votre ville : {query}\n")
+        f.write(f"- Note : {note}/20\n")
+        f.write(f"- Nombre de boulangeries : {data['boulangeries']}\n")
+        f.write(f"- Nombre de fast-foods : {data['fast_foods']}\n")
+        f.write(f"- Nombre de routes principales : {data['routes_principales']}\n")
