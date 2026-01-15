@@ -5,6 +5,7 @@ overpass_url0 = "http://overpass-api.de/api/interpreter"
 overpass_url1 = "https://lz4.overpass-api.de/api/interpreter"
 
 def get_dataset(query):
+    '''Récupère les données OSM pour une ville donnée.'''
     request = f"""
     [out:json][timeout:300];
     area["wikipedia"="fr:{query}"]->.searchArea;
@@ -27,6 +28,7 @@ def get_dataset(query):
 
 
 def compute_statistics(data):
+    '''Calcule les statistiques à partir des données OSM.'''
     if not data or "elements" not in data:
         return None
 
@@ -58,6 +60,7 @@ def compute_statistics(data):
     return stats
 
 def dataset_to_md(data_json, query, filename):
+    '''Génère un fichier markdown avec les statistiques de la ville.'''
     data_json = get_dataset(query)
     stats = compute_statistics(data_json)
     if not stats:

@@ -26,6 +26,7 @@ def getimg(xtile, ytile, zoom):
         print("Erreur :", response.status_code)
 
 def defimg(lat, lon, zoom):
+    '''définition des 9 images'''
     coord = {
         "lat": [lat-1, lat, lat+1],
         "lon": [lon-1, lon, lon+1],
@@ -108,6 +109,7 @@ def defimg(lat, lon, zoom):
 
 
 def assemblimg():
+    '''assemblage des 9 images'''
     images_paths = [
         "imageHG.jpg", "imageHC.jpg", "imageHD.jpg",
         "imageCG.jpg", "imageC.jpg", "imageCD.jpg",
@@ -123,6 +125,7 @@ def assemblimg():
     final_img.save("neufXneufIMG.png")
 
 def getimgcoord(lat_deg, lon_deg, zoom):
+    '''récupération des images en fonction des coordonnées'''
     xtile,ytile = deg2num(lat_deg,lon_deg,zoom)
     defimg(xtile, ytile,zoom)
     assemblimg()

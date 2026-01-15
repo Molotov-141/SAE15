@@ -2,6 +2,7 @@ import markdown
 import sys
 
 def convert(fichiermd, fichierhtml):
+    '''convertit un fichier .md en fichier .html'''
     with open(fichiermd, 'r') as f: ## ouverture du fichier et extraction du contenu
         text = f.read()  ## stockage du contenu
 

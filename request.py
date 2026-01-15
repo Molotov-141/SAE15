@@ -13,6 +13,7 @@ elif connexion.status_code == 204:
     print("Aucune donnée à retourner")
 
 def get_node(id):
+    '''Récupère les données d'un noeud OSM à partir de son ID.'''
     api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
     response = requests.get(api_url)
     json_data = response.json()
@@ -79,6 +80,7 @@ def node_to_md(id, filename: str):
         f.write(f"![Emplacement sur la carte](../neufXneufIMG.png)\n")
 
 def get_way(id):
+    '''Récupère les données d'une voie OSM à partir de son ID.'''
     api_url = "https://www.openstreetmap.org/api/0.6/way/"+str(id)+".json"
     response = requests.get(api_url)
     json_data = response.json()

@@ -1,6 +1,7 @@
 from md_vers_html import convert
 
 def convertion(fichiermmd,fichierhhtml):
+    '''convertit un fichier mmd en hhtml'''
     print("=======Convertisseur 3000=======")
     print("en cours...")
     convert(fichiermmd,fichierhhtml)
