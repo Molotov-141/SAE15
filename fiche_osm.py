@@ -17,8 +17,8 @@ elif connexion.status_code == 500:
 
 
 
-
-id = input("Entrez l'ID du noeud OSM : ")
+id = str(sys.argv[1])  # --> Méthode avec argument en ligne de commande
+# id = input("Entrez l'ID du noeud OSM : ") # --> Méthode avec input
 api_url = "https://www.openstreetmap.org/api/0.6/node/"+str(id)+".json"
 response = requests.get(api_url)
 json_data = response.json() 

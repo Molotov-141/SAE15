@@ -2,6 +2,7 @@ from datagrab import get_dataset, compute_statistics, dataset_to_md
 from convertisseur3000 import convertion
 import requests
 import os
+import sys
 
 
 json_data = {}
@@ -19,8 +20,8 @@ elif connexion.status_code == 500:
         print("Erreur lors de la connexion au serveur de secours")
         
 
-
-query = input("Entrez le nom de la ville : ")
+query = str(sys.argv[1])  # Méthode avec argument en ligne de commande
+# query = input("Entrez le nom de la ville : ") # Méthode avec input
 get_dataset(query)
 compute_statistics(json_data)
 

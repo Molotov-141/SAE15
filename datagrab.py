@@ -1,10 +1,11 @@
 import requests
 import os
-
+import sys
 overpass_url0 = "http://overpass-api.de/api/interpreter"
 overpass_url1 = "https://lz4.overpass-api.de/api/interpreter"
 
 def get_dataset(query):
+    ## Requête envoyée à l'API
     request = f"""
     [out:json][timeout:300];
     area["wikipedia"="fr:{query}"]->.searchArea;
@@ -15,6 +16,7 @@ def get_dataset(query):
     );
     out body;
     """
+    # Codes d'erreurs pour l'utilisateur
     response = requests.get(overpass_url0, params={'data': request})
     if response.status_code == 200:
         print("Connexion au serveur établie, données récupérées.")
@@ -27,6 +29,7 @@ def get_dataset(query):
 
 
 def compute_statistics(data):
+    '''Créé un score et une note grâce au nombre de boulangeries, fast-foods et routes principales'''
     if not data or "elements" not in data:
         return None
 
@@ -37,7 +40,7 @@ def compute_statistics(data):
         t = element.get('tags', {})
         if t.get('shop') == 'bakery' or t.get('amenity') == 'bakery':
             stats["bakery"] += 1
-            stats["score"] += 2.5
+            stats["score"] += 2.5 
         elif t.get('amenity') == 'fast_food':
             stats["fast_food"] += 1
             stats["score"] += 1
@@ -58,6 +61,7 @@ def compute_statistics(data):
     return stats
 
 def dataset_to_md(data_json, query, filename):
+    ''' Transforme du data (JSON) en Markdown'''
     data_json = get_dataset(query)
     stats = compute_statistics(data_json)
     if not stats:
