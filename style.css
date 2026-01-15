@@ -1,23 +1,23 @@
 .head {
-    background-color: #f0f0f0;
+    background-color: #348001;
     padding: 10px;
     text-align: center;
 }
 
-.h1 {
+body.h1 {
     font-size: 24px;
     font-weight: bold;
     margin: 20px 0;
-    background-color: ;
+    background-color: #0c7b00;
 }
 
-.h2 {
+body.h2 {
     font-size: 20px;
     font-weight: bold;
     margin: 18px 0;
 }
 
-.h3 {
+body.h3 {
     font-size: 18px;
     font-weight: bold;
     margin: 16px 0;
