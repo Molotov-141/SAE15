@@ -1,8 +1,5 @@
 import requests
-import time
 import os
-import markdown
-import math
 overpass_url0 = "http://overpass-api.de/api/interpreter"
 overpass_url1 = "https://lz4.overpass-api.de/api/interpreter"
 
@@ -77,9 +74,9 @@ def compute_statistics(data):
         note = 20
     return note
 
-def dataset_to_md(query, filename: str):
+def dataset_to_md(data, filename: str):
     '''Convertit les données d'une ville en format Markdown.'''
-    data = get_dataset(query)
+    data = compute_statistics(data)
     if not data or len(data['elements']) == 0:
         print("Erreur : Pas de données valides pour cette ville.")
         return
@@ -92,7 +89,7 @@ def dataset_to_md(query, filename: str):
         f.write(f"# Est ce que votre ville est pigeon friendly ?\n")
         f.write("## Statistiques\n\n")
         f.write(f"## Votre ville : {query}\n")
-        f.write(f"- Note : {data['note']}/20\n")
+        f.write(f"- Note : {note}/20\n")
         f.write(f"- Nombre de boulangeries : {data['boulangeries']}\n")
         f.write(f"- Nombre de fast-foods : {data['fast_foods']}\n")
         f.write(f"- Nombre de routes principales : {data['routes_principales']}\n")
