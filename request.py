@@ -97,6 +97,11 @@ def way_to_md(id, filename: str):
     chemin_dossier = os.path.join(dossier_script, "resultats")
     os.makedirs(chemin_dossier, exist_ok=True)
     chemin_final = os.path.join(chemin_dossier, filename)
+
+    image_path = "neufXneufING.png"
+    alt_text = "Emplacement sur la carte"
+    markdown_content = f"![{alt_text}]({image_path})"
+
     with open(chemin_final, 'w', encoding="utf-8") as f:
         f.write(f"# Informations sur la voie {id}\n\n")
         f.write("## Attributs\n\n")
@@ -105,3 +110,4 @@ def way_to_md(id, filename: str):
         f.write(f"- **Surface** : {tags.get('surface', 'Non spécifié')}\n")
         f.write(f"- **Largeur** : {tags.get('width', 'Non spécifié')}\n")
         f.write(f"- **Accès PMR** : {tags.get('wheelchair', 'Non spécifié')}\n")
+        f.write(markdown_content)
