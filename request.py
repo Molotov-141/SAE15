@@ -73,3 +73,33 @@ def node_to_md(id, filename: str):
         f.write(f"- **Vente à emporter** : {tags.get('takeaway', 'Non spécifié')}\n")
         f.write(f"- **Site Web** : {tags.get('website', 'Non spécifié')}\n")
         f.write(f"- **Accès PMR** : {tags.get('wheelchair', 'Non spécifié')}\n")
+        
+
+def get_way(id):
+    api_url = "https://www.openstreetmap.org/api/0.6/way/"+str(id)+".json"
+    response = requests.get(api_url)
+    json_data = response.json()
+    if response.status_code == 404:
+        print("Erreur 404 : Ressource non trouvée")
+    else:
+        return(json_data)
+
+def way_to_md(id, filename: str):   
+    '''Convertit les données d'une voie OSM en format Markdown.'''
+    data = get_way(id)
+    if not data or len(data['elements']) == 0:
+        print("Erreur : Pas de données valides pour cet ID.")
+        return
+    tags = data['elements'][0]['tags']
+    dossier_script = os.path.dirname(os.path.abspath(__file__))
+    chemin_dossier = os.path.join(dossier_script, "resultats")
+    os.makedirs(chemin_dossier, exist_ok=True)
+    chemin_final = os.path.join(chemin_dossier, filename)
+    with open(chemin_final, 'w', encoding="utf-8") as f:
+        f.write(f"# Informations sur la voie {id}\n\n")
+        f.write("## Attributs\n\n")
+        f.write(f"- **Nom** : {tags.get('name', 'Non spécifié')}\n")
+        f.write(f"- **Type** : {tags.get('highway', 'Non spécifié')}\n")
+        f.write(f"- **Surface** : {tags.get('surface', 'Non spécifié')}\n")
+        f.write(f"- **Largeur** : {tags.get('width', 'Non spécifié')}\n")
+        f.write(f"- **Accès PMR** : {tags.get('wheelchair', 'Non spécifié')}\n")
