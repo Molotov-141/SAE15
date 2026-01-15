@@ -100,7 +100,7 @@ def way_to_md(id, filename: str):
 
     image_path = "neufXneufING.png"
     alt_text = "Emplacement sur la carte"
-    markdown_content = f"![{alt_text}]({image_path})"
+    markdown_contenu = f"![{alt_text}]({image_path})"
 
     with open(chemin_final, 'w', encoding="utf-8") as f:
         f.write(f"# Informations sur la voie {id}\n\n")
@@ -110,4 +110,4 @@ def way_to_md(id, filename: str):
         f.write(f"- **Surface** : {tags.get('surface', 'Non spécifié')}\n")
         f.write(f"- **Largeur** : {tags.get('width', 'Non spécifié')}\n")
         f.write(f"- **Accès PMR** : {tags.get('wheelchair', 'Non spécifié')}\n")
-        f.write(markdown_content)
+        f.write(markdown_contenu)
