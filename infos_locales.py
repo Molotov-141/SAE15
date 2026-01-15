@@ -19,8 +19,13 @@ elif connexion.status_code == 500:
     else:
         print("Erreur lors de la connexion au serveur de secours")
         
+
+
 query = input("Entrez le nom de la ville : ")
 get_dataset(query)
 compute_statistics(json_data)
-dataset_to_md(json_data, f"resultats/fiche_{query}.md")
-convertion(f"resultats/fiche_{query}.md", f"resultats/fiche_{query}.html")
+dossier_script = os.path.dirname(os.path.abspath(__file__))
+chemin_dossier = os.path.join(dossier_script, "resultats")
+dataset_to_md(json_data, f"{chemin_dossier}/fiche_{query}.md")
+convertion(os.path.join(chemin_dossier, f"fiche_{query}.md"), os.path.join(chemin_dossier, f"fiche_{query}.html"))
+
