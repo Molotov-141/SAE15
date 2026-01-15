@@ -1,4 +1,8 @@
-from datagrab import get_dataset, compute_statistics
+from datagrab import get_dataset, compute_statistics, dataset_to_md
+from convertisseur3000 import convertion
+import requests
+import os
+
 
 json_data = {}
 overpass_url0 = "http://overpass-api.de/api/interpreter"
@@ -19,8 +23,13 @@ elif connexion.status_code == 500:
 query = input("Entrez le nom de la ville : ")
 get_dataset(query)
 compute_statistics(json_data)
+
 dossier_script = os.path.dirname(os.path.abspath(__file__))
 chemin_dossier = os.path.join(dossier_script, "resultats")
+os.makedirs(chemin_dossier, exist_ok=True)
+chemin_fichier_md = os.path.join(chemin_dossier, f"fiche_{query}.md")
+chemin_fichier_html = os.path.join(chemin_dossier, f"fiche_{query}.html")
+print(f"Création du fichier : {chemin_fichier_md}...")
 dataset_to_md(json_data, f"{chemin_dossier}/fiche_{query}.md")
 convertion(os.path.join(chemin_dossier, f"fiche_{query}.md"), os.path.join(chemin_dossier, f"fiche_{query}.html"))
 
