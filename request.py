@@ -3,6 +3,7 @@ import os
 import markdown as md
 from getmap import getimgcoord
 from PIL import Image
+import sys
 url = "https://api.openstreetmap.org/"
 connexion = requests.get(url)
 if connexion.status_code == 200:
