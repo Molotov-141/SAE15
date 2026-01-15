@@ -76,7 +76,7 @@ def node_to_md(id, filename: str):
         f.write(f"- **Site Web** : {tags.get('website', 'Non spécifié')}\n")
         f.write(f"- **Accès PMR** : {tags.get('wheelchair', 'Non spécifié')}\n")
         getimgcoord(data['elements'][0]['lat'], data['elements'][0]['lon'], 18)
-        f.write(f"![Emplacement sur la carte](neufXneufING.png)\n")
+        f.write(f"![Emplacement sur la carte](../neufXneufIMG.png)\n")
 
 def get_way(id):
     api_url = "https://www.openstreetmap.org/api/0.6/way/"+str(id)+".json"
@@ -99,7 +99,7 @@ def way_to_md(id, filename: str):
     os.makedirs(chemin_dossier, exist_ok=True)
     chemin_final = os.path.join(chemin_dossier, filename)
 
-    image_path = "neufXneufING.png"
+    image_path = "../neufXneufIMG.png"
     alt_text = "Emplacement sur la carte"
     markdown_contenu = f"![{alt_text}]({image_path})"
 

@@ -15,19 +15,16 @@ def get_dataset(query):
     );
     out body;
     """
-    try:
-        response = requests.get(overpass_url0, params={'data': request})
+    response = requests.get(overpass_url0, params={'data': request})
+    if response.status_code == 200:
+        print("Connexion au serveur établie, données récupérées.")
+        return response.json()
+    elif response.status_code == 504:
+        response = requests.get(overpass_url1, params={'data': request})
         if response.status_code == 200:
-            print("Connexion au serveur établie, données récupérées.")
+            print("Connexion au serveur de secours établie, données récupérées.")
             return response.json()
-        elif response.status_code == 504:
-            response = requests.get(overpass_url1, params={'data': request})
-            if response.status_code == 200:
-                print("Connexion au serveur de secours établie, données récupérées.")
-                return response.json()
-    except:
-        return None
-    return None
+
 
 def compute_statistics(data):
     if not data or "elements" not in data:
@@ -35,7 +32,7 @@ def compute_statistics(data):
 
 
     stats = {"bakery": 0, "fast_food": 0, "trunk": 0, "score": 0,}
-
+    # Construction du score
     for element in data['elements']:
         t = element.get('tags', {})
         if t.get('shop') == 'bakery' or t.get('amenity') == 'bakery':
@@ -53,6 +50,11 @@ def compute_statistics(data):
     if s > 100: s = 100
     if s < 0: s = 0
     stats["note"] = s / 5
+    note = stats["note"]
+    if note > 20:
+        note = 20
+    if note < 0:
+        note = 0
     return stats
 
 def dataset_to_md(data_json, query, filename):
@@ -61,6 +63,18 @@ def dataset_to_md(data_json, query, filename):
     if not stats:
         print("Erreur : Pas de données valides.")
         return
+    
+    if note == 0:
+        message = "Ville pas du tout pigeon-friendly. Risque élévé de finir en rôtisserie !"
+    if 0 < note < 5:
+        message = "Ville peu pigeon-friendly. ATTENTION TORTUE CARNIVORE !"
+    elif 5 <= note < 10:
+        message = "Ville moyennement pigeon-friendly. Ouais, pas mal pas mal"
+    elif 10 <= note < 15:
+        message = "Ville très pigeon-friendly. SAFE PLACE ( Ya même des psys )"
+    elif note == 20:
+        message = "Ville entièrement pigeon-friendly. NEC PLUS ULTRA des emplacement où vivre"
+        print(f"{note}/20")
 
     dossier_script = os.path.dirname(os.path.abspath(__file__))
     chemin_dossier = os.path.join(dossier_script, "resultats")
@@ -75,3 +89,5 @@ def dataset_to_md(data_json, query, filename):
         f.write(f"- Nombre de boulangeries : {stats['bakery']}\n")
         f.write(f"- Nombre de fast-foods : {stats['fast_food']}\n")
         f.write(f"- Nombre de routes principales : {stats['trunk']}\n")
+        f.write(f"## Conclusion\n")
+        f.write(f"{message}\n")

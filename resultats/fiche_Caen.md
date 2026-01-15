@@ -6,3 +6,4 @@
 - Nombre de boulangeries : 64
 - Nombre de fast-foods : 104
 - Nombre de routes principales : 55
+## Conclusion
