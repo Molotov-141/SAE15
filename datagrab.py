@@ -75,15 +75,15 @@ def compute_statistics(data):
     if note > 20:
         note = 20
     if note == 0:
-        print("Ville pas du tout pigeon-friendly.")
+        print("Ville pas du tout pigeon-friendly. Risque élévé de finir en rôtisserie !")
     if 0 < note < 5:
-        print("Ville peu pigeon-friendly.")
+        print("Ville peu pigeon-friendly. ATTENTION TORTUE CARNIVORE !")
     elif 5 <= note < 10:
-        print("Ville moyennement pigeon-friendly.")
+        print("Ville moyennement pigeon-friendly. TITOUAN ARRETE DE FAIRE CACA SUR LES PASSANTS !")
     elif 10 <= note < 15:
-        print("Ville très pigeon-friendly.")
+        print("Ville très pigeon-friendly. SAFE PLACE ( Ya même des psys )")
     elif note == 20:
-        print("Ville entièrement pigeon-friendly.")
+        print("Ville entièrement pigeon-friendly. IPHONE PRO NEC PLUS ULTRA GOLD PRO MAX des emplacement ou vivre")
     print(f"{note}/20")
     return note
 
