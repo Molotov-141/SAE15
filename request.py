@@ -2,6 +2,7 @@ import requests
 import os
 import markdown as md
 from getmap import getimgcoord
+from PIL import Image
 url = "https://api.openstreetmap.org/"
 connexion = requests.get(url)
 if connexion.status_code == 200:
@@ -74,7 +75,7 @@ def node_to_md(id, filename: str):
         f.write(f"- **Vente à emporter** : {tags.get('takeaway', 'Non spécifié')}\n")
         f.write(f"- **Site Web** : {tags.get('website', 'Non spécifié')}\n")
         f.write(f"- **Accès PMR** : {tags.get('wheelchair', 'Non spécifié')}\n")
-        
+        getimgcoord(data['elements'][0]['lat'], data['elements'][0]['lon'], 16)
 
 def get_way(id):
     api_url = "https://www.openstreetmap.org/api/0.6/way/"+str(id)+".json"
