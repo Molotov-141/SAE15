@@ -1,9 +1,4 @@
-from datagrab import get_dataset, compute_statistics, dataset_to_md
-from convertisseur3000 import convertion
-import requests
-import os
-import markdown
-import sys
+from datagrab import get_dataset, compute_statistics
 
 json_data = {}
 overpass_url0 = "http://overpass-api.de/api/interpreter"
