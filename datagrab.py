@@ -40,13 +40,13 @@ def compute_statistics(data):
         t = element.get('tags', {})
         if t.get('shop') == 'bakery' or t.get('amenity') == 'bakery':
             stats["bakery"] += 1
-            stats["score"] += 3
+            stats["score"] += 2.5
         elif t.get('amenity') == 'fast_food':
             stats["fast_food"] += 1
             stats["score"] += 1
         elif t.get('highway') == 'trunk':
             stats["trunk"] += 1
-            stats["score"] -= 2
+            stats["score"] -= 3.5
 
     # Calcul de la note
     s = stats["score"]

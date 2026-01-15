@@ -2,7 +2,7 @@
 
 ## Votre ville : Caen
 ## Statistiques
-- Note : 20.0/20
+- Note : 14.3/20
 - Nombre de boulangeries : 64
 - Nombre de fast-foods : 104
 - Nombre de routes principales : 55
