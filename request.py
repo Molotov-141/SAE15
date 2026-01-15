@@ -75,7 +75,7 @@ def node_to_md(id, filename: str):
         f.write(f"- **Vente à emporter** : {tags.get('takeaway', 'Non spécifié')}\n")
         f.write(f"- **Site Web** : {tags.get('website', 'Non spécifié')}\n")
         f.write(f"- **Accès PMR** : {tags.get('wheelchair', 'Non spécifié')}\n")
-        getimgcoord(data['elements'][0]['lat'], data['elements'][0]['lon'], 16)
+        getimgcoord(data['elements'][0]['lat'], data['elements'][0]['lon'], 18)
 
 def get_way(id):
     api_url = "https://www.openstreetmap.org/api/0.6/way/"+str(id)+".json"
