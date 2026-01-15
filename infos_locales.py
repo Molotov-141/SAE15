@@ -30,6 +30,6 @@ os.makedirs(chemin_dossier, exist_ok=True)
 chemin_fichier_md = os.path.join(chemin_dossier, f"fiche_{query}.md")
 chemin_fichier_html = os.path.join(chemin_dossier, f"fiche_{query}.html")
 print(f"Création du fichier : {chemin_fichier_md}...")
-dataset_to_md(json_data, f"{chemin_dossier}/fiche_{query}.md")
+dataset_to_md(json_data, query, f"{chemin_dossier}/fiche_{query}.md")
 convertion(os.path.join(chemin_dossier, f"fiche_{query}.md"), os.path.join(chemin_dossier, f"fiche_{query}.html"))
 
