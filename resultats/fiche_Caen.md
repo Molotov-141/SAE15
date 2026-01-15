@@ -7,3 +7,4 @@
 - Nombre de fast-foods : 104
 - Nombre de routes principales : 55
 ## Conclusion
+Ville très pigeon-friendly. SAFE PLACE ( Ya même des psys )

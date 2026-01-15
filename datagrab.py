@@ -63,7 +63,7 @@ def dataset_to_md(data_json, query, filename):
     if not stats:
         print("Erreur : Pas de données valides.")
         return
-    
+    note = stats['note']
     if note == 0:
         message = "Ville pas du tout pigeon-friendly. Risque élévé de finir en rôtisserie !"
     if 0 < note < 5:
