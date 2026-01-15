@@ -45,6 +45,7 @@ def get_dataset(query):
         return None
 
 def compute_statistics(data):
+    '''Crée un score et une note à une ville'''
     score = 0
     bakery_count = 0
     fast_food_count = 0
@@ -74,17 +75,24 @@ def compute_statistics(data):
     note = score / 5
     if note > 20:
         note = 20
-    if note == 0:
-        print("Ville pas du tout pigeon-friendly.")
-    if 0 < note < 5:
-        print("Ville peu pigeon-friendly.")
-    elif 5 <= note < 10:
-        print("Ville moyennement pigeon-friendly.")
-    elif 10 <= note < 15:
-        print("Ville très pigeon-friendly.")
-    elif note == 20:
-        print("Ville entièrement pigeon-friendly.")
-    print(f"{note}/20")
     return note
 
-def dataset_to_md(data, filename):
+def dataset_to_md(query, filename: str):
+    '''Convertit les données d'une ville en format Markdown.'''
+    data = get_dataset(query)
+    if not data or len(data['elements']) == 0:
+        print("Erreur : Pas de données valides pour cette ville.")
+        return
+    tags = data['elements'][0]['tags']
+    dossier_script = os.path.dirname(os.path.abspath(__file__))
+    chemin_dossier = os.path.join(dossier_script, "resultats")
+    os.makedirs(chemin_dossier, exist_ok=True)
+    chemin_final = os.path.join(chemin_dossier, filename)
+    with open(chemin_final, 'w', encoding="utf-8") as f:
+        f.write(f"# Est ce que votre ville est pigeon friendly ?\n")
+        f.write("## Statistiques\n\n")
+        f.write(f"## Votre ville : {query}\n")
+        f.write(f"- Note : {data['note']}/20\n")
+        f.write(f"- Nombre de boulangeries : {data['boulangeries']}\n")
+        f.write(f"- Nombre de fast-foods : {data['fast_foods']}\n")
+        f.write(f"- Nombre de routes principales : {data['routes_principales']}\n")
