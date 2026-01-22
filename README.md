@@ -1,14 +1,7 @@
 # SAE15
 
-## OBJECTIF ( ordre d'importance ) 
-
--
-
-## Réalisé 
-
-- convert ( dans md_vers_html.py ) : fonction appelable dans un autre fichier, et appelable dans le bash
-- obtention et communication avec l'API
-
+## Nos modifications :
+- Nous avons ajouté un script de calcul de score pour calculer si une ville est un bon endroit habitable pour les pigeons. nous l'avons fait avec la fonction compute_statistics du fichier datagrab.py.
 
 ## Lien utiles 
 docu API :  https://wiki.openstreetmap.org/wiki/API_v0.6 
