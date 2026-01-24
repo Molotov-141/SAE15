@@ -1,4 +1,4 @@
-from md_vers_html import convert
+from md_to_html import convert
 
 def convertion(fichiermmd,fichierhhtml):
     '''convertit un fichier mmd en hhtml'''

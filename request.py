@@ -1,7 +1,6 @@
 import requests
 import os
-import markdown as md
-from getmap import getimgcoord
+import markdown
 from PIL import Image
 import sys
 url = "https://api.openstreetmap.org/"
